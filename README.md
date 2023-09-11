@@ -60,6 +60,6 @@ This script is for educational purposes only. Ensure you have the right to acces
 
 ## License
 
-This project is [MIT](https://choosealicense.com/licenses/mit/) licensed.
+This project is [CC-BY-SA-4.0 license](https://choosealicense.com/licenses/cc-by-sa-4.0/#) licensed.
 
 ---
