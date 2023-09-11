@@ -31,7 +31,7 @@ Fetch the Japanese word of the day from [JapanesePod101](https://www.japanesepod
 
 1. Clone the repository:
 ```bash
-git clone [your_repository_link]
+git clone [https://github.com/Ukiyo-Server/wotd-jps]
 ```
 
 2. Navigate to the directory and install the required Python modules:
