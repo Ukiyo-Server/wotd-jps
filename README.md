@@ -1,7 +1,3 @@
-Absolutely! Here's a well-detailed `README.md` for your project:
-
----
-
 # Word of the Day - JapanesePod101 Scraper
 
 Fetch the Japanese word of the day from [JapanesePod101](https://www.japanesepod101.com/japanese-phrases), along with additional details and downloadable audio examples.
