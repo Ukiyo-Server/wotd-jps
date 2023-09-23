@@ -32,6 +32,14 @@ def extract_data():
         words_meaning = soup.select_one("#wotd-widget > div.r101-wotd-widget__section--first > div.r101-wotd-widget__english").text.strip()
         part_of_speech = soup.select_one("#wotd-widget > div.r101-wotd-widget__section--first > div.r101-wotd-widget__class")
         part_of_speech = part_of_speech.text.strip() if part_of_speech else None
+        example1 = soup.select_one("#wotd-widget > div:nth-child(3) > div.r101-wotd-widget__word-row > div.r101-wotd-widget__word").text.strip()
+        example1_yomigana = soup.select_one("#wotd-widget > div:nth-child(3) > div.r101-wotd-widget__additional-field.kana").text.strip()
+        example1_romaji = soup.select_one("#wotd-widget > div:nth-child(3) > div.r101-wotd-widget__additional-field.romaji").text.strip()
+        example1_meaning = soup.select_one("#wotd-widget > div:nth-child(3) > div.r101-wotd-widget__english").text.strip()
+        example2 = soup.select_one("#wotd-widget > div:nth-child(4) > div.r101-wotd-widget__word-row > div.r101-wotd-widget__word").text.strip()
+        example2_yomigana = soup.select_one("#wotd-widget > div:nth-child(4) > div.r101-wotd-widget__additional-field.kana").text.strip()
+        example2_romaji = soup.select_one("#wotd-widget > div:nth-child(4) > div.r101-wotd-widget__additional-field.romaji").text.strip()
+        example2_meaning = soup.select_one("#wotd-widget > div:nth-child(4) > div.r101-wotd-widget__english").text.strip()
 
         # Additional audio selectors
         example1_elem = soup.select_one("#wotd-widget > div:nth-child(3) > div.r101-wotd-widget__word-row > div.r101-wotd-widget__audio.r101-audio-player--a.js-audio-player")
@@ -40,7 +48,7 @@ def extract_data():
         example2_elem = soup.select_one("#wotd-widget > div:nth-child(4) > div.r101-wotd-widget__word-row > div.r101-wotd-widget__audio.r101-audio-player--a.js-audio-player")
         example2_mp3 = example2_elem['data-audio'] if example2_elem and 'data-audio' in example2_elem.attrs else None
         
-        return word, audio_url, date, yomigana, romaji, words_meaning, part_of_speech, example1_mp3, example2_mp3
+        return word, audio_url, date, yomigana, romaji, words_meaning, part_of_speech, example1, example1_yomigana, example1_romaji, example1_meaning, example1_mp3, example2, example2_yomigana, example2_romaji, example2_meaning, example2_mp3
 
     except requests.Timeout:
         logging.error("The request timed out")
@@ -88,7 +96,7 @@ def download_word_audio(audio_url, filename):
 def main_function():
     data = extract_data()
     if data:
-        word, main_audio, date, yomigana, romaji, words_meaning, part_of_speech, example1_mp3, example2_mp3 = data
+        word, main_audio, date, yomigana, romaji, words_meaning, part_of_speech, example1, example1_yomigana, example1_romaji, example1_meaning, example1_mp3, example2, example2_yomigana, example2_romaji, example2_meaning, example2_mp3 = data
 
         # Handling possible missing data
         output_data = {
@@ -96,7 +104,15 @@ def main_function():
             "date": date,
             "yomigana": yomigana,
             "romaji": romaji,
-            "words_meaning": words_meaning
+            "words_meaning": words_meaning,
+            "example1": example1,
+            "example1_yomigana": example1_yomigana,
+            "example1_romaji": example1_romaji,
+            "example1_meaning": example1_meaning,
+            "example2": example2,
+            "example2_yomigana": example2_yomigana,
+            "example2_romaji": example2_romaji,
+            "example2_meaning": example2_meaning
         }
         if part_of_speech:
             output_data["part_of_speech"] = part_of_speech

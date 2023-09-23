@@ -1,2 +1,6 @@
 *.mp3
 env
+config.json
+wotd_jps.log
+wotd/__pycache__/main.cpython-311.pyc
+.gitignore
