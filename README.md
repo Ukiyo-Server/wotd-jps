@@ -1,5 +1,7 @@
 # Word of the Day - JapanesePod101 Scraper
 
+# This is under development.
+
 Fetch the Japanese word of the day from [JapanesePod101](https://www.japanesepod101.com/japanese-phrases), along with additional details and downloadable audio examples.
 
 ## Table of Contents
