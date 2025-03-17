@@ -2,43 +2,42 @@ name: Release
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
+    branches:
+      - main
 
 jobs:
-  release:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
 
-      - name: Install dependencies
-        run: npm install
+    - name: Authenticate npm
+      run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
 
-      - name: Build project
-        run: npm run build
+    - name: Install dependencies
+      run: npm install
 
-      - name: Publish to npm
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - name: Run build
+      run: npm run build
 
-      - name: Publish to GitHub Packages
-        run: npm publish --registry=https://npm.pkg.github.com
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Deploy
+      run: npm run deploy
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
+    - name: Publish to GitHub Packages
+      run: npm publish --registry=https://npm.pkg.github.com
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
           files: |
             dist/**
-        env:
+      env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
