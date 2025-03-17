@@ -1,6 +1,6 @@
 {
   "name": "@idleboy/wotd-jps",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "Fetch the Japanese word of the day from [JapanesePod101](https://www.japanesepod101.com/japanese-phrases), along with additional details and downloadable audio examples.",
   "main": "index.js",
   "directories": {
