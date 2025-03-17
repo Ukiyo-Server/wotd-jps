@@ -27,7 +27,7 @@ jobs:
       run: npm run build
 
     - name: Deploy
-      run: npm run deploy
+      run: npm run publish
 
     - name: Publish to GitHub Packages
       run: npm publish --registry=https://npm.pkg.github.com
