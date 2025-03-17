@@ -1,67 +1,89 @@
-# Word of the Day - JapanesePod101 Scraper
-
-# This is under development.
+# @idleboy/wotd-jps
 
 Fetch the Japanese word of the day from [JapanesePod101](https://www.japanesepod101.com/japanese-phrases), along with additional details and downloadable audio examples.
 
-## Table of Contents
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Logging](#logging)
-- [Contribution](#contribution)
-- [Disclaimer](#disclaimer)
-- [License](#license)
-
-## Features
-
-- Extracts the word of the day from JapanesePod101.
-- Retrieves additional details like the date, yomigana, romaji, word meaning, and part of speech.
-- Downloads high-quality audio examples for the main word and additional examples.
-
-## Prerequisites
-
-- Python 3.x
-- Required Python modules: `requests`, `beautifulsoup4`
-
 ## Installation
 
-1. Clone the repository:
-```bash
-git clone [https://github.com/Ukiyo-Server/wotd-jps]
-```
+To install, run:
 
-2. Navigate to the directory and install the required Python modules:
-```bash
-cd path_to_directory
-pip install -r requirements.txt
+```sh
+npm i @idleboy/wotd-jps
 ```
 
 ## Usage
 
-To use the script, navigate to the directory and run:
+To fetch the Japanese word of the day and download associated files, you can use the provided functions.
 
-```bash
-python main.py
+### Fetching the Word of the Day
+
+You can fetch the word of the day using the `getWotd` function:
+
+```js
+const { getWotd } = require('./lib/wotd');
+
+getWotd().then(data => {
+  console.log(data);
+});
 ```
 
-This will extract the word of the day along with its details and download the associated audio files.
+You'll get something similar to this:
 
-## Logging
+```json
+{
+  date: '2025-03-17',
+  dictionary_id: '135414',
+  flashcard_id: '2320483',
+  text: '感染',
+  audio_target: 'https://d1pra95f92lrn3.cloudfront.net/audio/226725.mp3',
+  audio_english: 'https://d1pra95f92lrn3.cloudfront.net/audio/87946.mp3',
+  image_url: 'https://d1pra95f92lrn3.cloudfront.net/media/thumb/9457_fit288.jpg',
+  image_url_512: 'https://d1pra95f92lrn3.cloudfront.net/media/thumb/9457_fit512.jpg',
+  english: 'infection',
+  meaning: 'the pathological state resulting from the invasion of the body by pathogenic microorganisms',
+  class: 'noun',
+  distracting_words: [ 'graveyard', 'diarrhea', 'cough' ],
+  is_add_wordbank: false,
+  kana: 'かんせん',
+  romanization: 'kansen',
+  samples: [
+    {
+      audio_target: 'https://d1pra95f92lrn3.cloudfront.net/audio/226726.mp3',
+      audio_english: 'https://d1pra95f92lrn3.cloudfront.net/audio/86003.mp3',
+      text: '彼女が抗生物質を飲み始めたら、感染部位は良くなった。',
+      english: 'The infection improved when she started taking an antibiotic.',
+      kana: 'かのじょがこうせいぶっしつをのみはじめたら、かんせんぶいはよくなった。',
+      romanization: 'Kanojo ga kōsei busshitsu o nomi hajimetara, kansen bui wa yoku natta.'
+    },
+    {
+      audio_target: 'https://d1pra95f92lrn3.cloudfront.net/audio/226728.mp3',
+      audio_english: 'https://d1pra95f92lrn3.cloudfront.net/audio/86005.mp3',
+      text: '皮膚感染',
+      english: 'skin infection',
+      kana: 'ひふかんせん',
+      romanization: 'hifu kansen'
+    },
+    {
+      audio_target: 'https://d1pra95f92lrn3.cloudfront.net/audio/226727.mp3',
+      audio_english: 'https://d1pra95f92lrn3.cloudfront.net/audio/86004.mp3',
+      text: '重度の感染',
+      english: 'severe infection',
+      kana: 'じゅうどのかんせん',
+      romanization: 'jūdo no kansen'
+    }
+  ]
+}
+```
 
-The script logs its activities and any errors encountered during its execution. The logs can be found in the `wotd_jps.log` file in the main directory.
+### Fetching and Downloading Files
 
-## Contribution
+To fetch the word of the day and download the associated files, use the `getWotdAndDownload` function:
 
-Contributions, issues, and feature requests are welcome. Feel free to check the [issues page](#) if you want to contribute.
+```js
+const { getWotdAndDownload } = require('./lib/wotd');
 
-## Disclaimer
-
-This script is for educational purposes only. Ensure you have the right to access and scrape the website. Always respect `robots.txt` and terms of service of the website. The structure of the website might change over time, so the script might need updates.
+getWotdAndDownload();
+```
 
 ## License
 
-This project is [CC-BY-SA-4.0 license](https://choosealicense.com/licenses/cc-by-sa-4.0/#) licensed.
-
----
+This project is licensed under the Attribution-ShareAlike 4.0 International License. See the [LICENSE](LICENSE) file for details.
