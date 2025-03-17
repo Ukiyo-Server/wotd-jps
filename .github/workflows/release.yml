@@ -2,56 +2,40 @@ name: Release
 
 on:
   push:
-    # Trigger the workflow when a tag matching semantic versioning is pushed
-    tags:
-      - 'v*.*.*'
+    branches:
+      - main
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: '16'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: '14'
 
       - name: Authenticate with npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-      
-      - name: Install Dependencies
+
+      - name: Authenticate with GitHub Packages
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_TOKEN }}" >> ~/.npmrc
+
+      - name: Install dependencies
         run: npm install
 
-      - name: Build Package
+      - name: Run build
         run: npm run build
 
-      # - name: Run Tests
-      #   run: npm test
-
-      - name: Publish Package to npm
+      - name: Publish to npm
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Configure npm for GitHub Packages
-        run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_TOKEN }}" > ~/.npmrc
-          # Optionally, you can also specify a scope if your package uses one:
-          # echo "@OWNER:registry=https://npm.pkg.github.com" >> ~/.npmrc
-
-      - name: Publish Package to GitHub Packages
+      - name: Publish to GitHub Packages
         run: npm publish --registry=https://npm.pkg.github.com
-
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            Changelog or details about this release.
+          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
