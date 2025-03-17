@@ -1,13 +1,13 @@
 {
   "name": "@idleboy/wotd-jps",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.4",
   "description": "Fetch the Japanese word of the day from [JapanesePod101](https://www.japanesepod101.com/japanese-phrases), along with additional details and downloadable audio examples.",
   "main": "index.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "jest"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -29,8 +29,8 @@
     "jsdom": "^26.0.0",
     "node-fetch": "^3.3.2",
     "user-agents": "^1.0.647"
-
   },
+  "devDependencies": {},
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Ukiyo-Server/wotd-jps/issues"

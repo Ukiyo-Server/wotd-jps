@@ -1,1 +1,1 @@
-module.exports = require("./lib/wotd.js");
+module.exports = require("./lib/wotd");
